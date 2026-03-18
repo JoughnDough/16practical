@@ -75,6 +75,16 @@ public class tryHeapsort {
         }
 
 
+        public String[] sort(){
+            for (int i = (n - 1); i >= 1; i--){
+                swap(i, 0);
+                n--;
+                heapifyDown(0);
+            }
+
+            return A;
+        }
+
         public Heapsort(String[] wordsToSort, boolean build_bottom_up) {
             n = 0;
             max_size = wordsToSort.length;
