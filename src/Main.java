@@ -1,3 +1,4 @@
+//4574790  Ungweru Nyirenda
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,6 +7,21 @@ import java.util.Arrays;
 public class Main {
     private static final int NUMBER_OF_WORDS = 264293;
     private static final int SAMPLE_SIZE = 18;
+
+    private static final int SUBSET_SIZE = 15;
+
+    private static String[] randomSubset(String[] words){
+        int startIndex = (int) (Math.random() * (NUMBER_OF_WORDS - SUBSET_SIZE - 1));
+        int endIndex  = startIndex + SUBSET_SIZE - 1;
+
+        String[] subset = new String[SUBSET_SIZE];
+
+        int index = 0;
+        for (int i = startIndex; i <= endIndex; i++)
+            subset[index++] = words[i];
+
+        return subset;
+    }
 
     public static void main(String[] args) {
 
@@ -41,8 +57,12 @@ public class Main {
             System.out.println("\nHeap sort with the heap being built bottom up:");
             System.out.println(Arrays.toString(sortedSampleA));
             System.out.println("Heap sort with the heap being built top down:");
-            System.out.println(Arrays.toString(sortedSampleB));
+            System.out.println(Arrays.toString(sortedSampleB) + "\n");
 
+
+
+            for (int i = 0; i < 4; i++)
+                System.out.println("subset: " + Arrays.toString(randomSubset(words)));
 
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
