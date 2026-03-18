@@ -1,4 +1,5 @@
 //4574790  Ungweru Nyirenda
+//CSC 211 Practical 6
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +10,7 @@ public class Main {
     private static final int SAMPLE_SIZE = 18;
 
     private static final int SUBSET_SIZE = 15;
+    private static final int NUMBER_OF_TIMING_TRIALS = 18;
 
     private static String[] randomSubset(String[] words){
         int startIndex = (int) (Math.random() * (NUMBER_OF_WORDS - SUBSET_SIZE - 1));
@@ -61,8 +63,31 @@ public class Main {
 
 
 
-            for (int i = 0; i < 4; i++)
-                System.out.println("subset: " + Arrays.toString(randomSubset(words)));
+            double total_BuildBottomUp_sortTime = 0;
+            double total_BuildTopDown_sortTime = 0;
+            for (int i = 1; i <= NUMBER_OF_TIMING_TRIALS; i ++){
+                String[] arrayOfwords = randomSubset(words);
+
+                System.out.println("----------------------------------------");
+
+                long now = System.nanoTime();
+                String[] sort = tryHeapsort.sort(arrayOfwords, true);
+
+                long elapsed_BottomUp = System.nanoTime() - now;
+                total_BuildBottomUp_sortTime += elapsed_BottomUp;
+                System.out.println(Arrays.toString(sort));
+
+                now = System.nanoTime();
+                sort = tryHeapsort.sort(arrayOfwords, false);
+
+                long elapsed_TopDown = System.nanoTime() - now;
+                total_BuildTopDown_sortTime += elapsed_TopDown;
+                System.out.println(Arrays.toString(sort));
+
+                System.out.println("Bottom Up " + elapsed_BottomUp);
+                System.out.println("Top Down " + elapsed_TopDown);
+            }
+
 
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
