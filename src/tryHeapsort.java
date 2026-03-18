@@ -46,7 +46,23 @@ public class tryHeapsort {
             A[i] = word;
         }
 
-        
+        private void heapifyDown(int i) {
+            int child = left(i);
+
+            while (child < n) {
+                int right_child = child + 1;
+                if (right_child < n && A_greaterThan_B(A[right_child], A[child]))
+                    child = right_child;
+
+                if (A_greaterThan_B(A[child], A[i])) {
+                    swap(child, i);
+                    i = child;
+                    child = left(i);
+                } else
+                    break;
+            }
+        }
+
 
         public Heapsort(String[] wordsToSort, boolean build_bottom_up) {
             n = 0;
