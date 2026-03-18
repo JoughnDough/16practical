@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Main {
     private static final int NUMBER_OF_WORDS = 264293;
-    private static final int SAMPLE_SIZE = 20;
+    private static final int SAMPLE_SIZE = 18;
 
     public static void main(String[] args) {
 
@@ -34,6 +34,14 @@ public class Main {
                     }
                 }
             }
+
+            String[] sortedSampleA = tryHeapsort.sort(sample, true);
+            String[] sortedSampleB = tryHeapsort.sort(sample, false);
+
+            System.out.println("\nHeap sort with the heap being built bottom up:");
+            System.out.println(Arrays.toString(sortedSampleA));
+            System.out.println("Heap sort with the heap being built top down:");
+            System.out.println(Arrays.toString(sortedSampleB));
 
 
         } catch (IOException e) {
