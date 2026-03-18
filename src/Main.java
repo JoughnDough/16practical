@@ -9,8 +9,10 @@ public class Main {
     private static final int NUMBER_OF_WORDS = 264293;
     private static final int SAMPLE_SIZE = 18;
 
-    private static final int SUBSET_SIZE = 15;
-    private static final int NUMBER_OF_TIMING_TRIALS = 18;
+    private static final int SUBSET_SIZE = 80000;
+    private static final int NUMBER_OF_TIMING_TRIALS = 24;
+
+    private static final double NANO_TO_MILI = Math.pow(10, -6);
 
     private static String[] randomSubset(String[] words){
         int startIndex = (int) (Math.random() * (NUMBER_OF_WORDS - SUBSET_SIZE - 1));
@@ -23,6 +25,10 @@ public class Main {
             subset[index++] = words[i];
 
         return subset;
+    }
+
+    private static double nano_to_miliseconds(double time_in_nanoseconds){
+        return (double) Math.round(time_in_nanoseconds * NANO_TO_MILI * 100)/100;
     }
 
     public static void main(String[] args) {
@@ -65,28 +71,25 @@ public class Main {
 
             double total_BuildBottomUp_sortTime = 0;
             double total_BuildTopDown_sortTime = 0;
+
             for (int i = 1; i <= NUMBER_OF_TIMING_TRIALS; i ++){
                 String[] arrayOfwords = randomSubset(words);
 
-                System.out.println("----------------------------------------");
-
                 long now = System.nanoTime();
-                String[] sort = tryHeapsort.sort(arrayOfwords, true);
-
-                long elapsed_BottomUp = System.nanoTime() - now;
-                total_BuildBottomUp_sortTime += elapsed_BottomUp;
-                System.out.println(Arrays.toString(sort));
+                tryHeapsort.sort(arrayOfwords, true);
+                total_BuildBottomUp_sortTime += System.nanoTime() - now;
 
                 now = System.nanoTime();
-                sort = tryHeapsort.sort(arrayOfwords, false);
-
-                long elapsed_TopDown = System.nanoTime() - now;
-                total_BuildTopDown_sortTime += elapsed_TopDown;
-                System.out.println(Arrays.toString(sort));
-
-                System.out.println("Bottom Up " + elapsed_BottomUp);
-                System.out.println("Top Down " + elapsed_TopDown);
+                tryHeapsort.sort(arrayOfwords, false);
+                total_BuildTopDown_sortTime += System.nanoTime() - now;
             }
+
+            double avg_BuildBottomUp_sortTime    = nano_to_miliseconds(total_BuildBottomUp_sortTime/NUMBER_OF_TIMING_TRIALS);
+            double avg_BuildTopToBottom_sortTime = nano_to_miliseconds(total_BuildTopDown_sortTime/NUMBER_OF_TIMING_TRIALS);
+
+            System.out.println("\n ----------------------------------------------------");
+            System.out.println("Avg sort time of heap sort with heaps built from the bottom up: " + avg_BuildBottomUp_sortTime + "ms");
+            System.out.println("Avg sort time of heap sort with heaps built from the top down:  " + avg_BuildTopToBottom_sortTime + "ms");
 
 
         } catch (IOException e) {
