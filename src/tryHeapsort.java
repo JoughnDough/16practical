@@ -6,6 +6,30 @@ public class tryHeapsort {
         private String[] A;
         private String[] unsortedWords;
 
+        private void swap(int indexA, int indexB){
+            String tempB = A[indexB];
+
+            A[indexB] = A[indexA];
+            A[indexA] = tempB;
+        }
+
+        private int parent(int childIndex){
+            return childIndex/2;
+        }
+
+        private int left(int parentIndex){
+            return 2*parentIndex + 1;
+        }
+
+        private int right(int parentIndex){
+            return 2*parentIndex + 2;
+        }
+
+        private  boolean A_greaterThan_B(String wordA, String wordB){
+            return wordA.compareTo(wordB) > 0;
+        }
+        
+
         public Heapsort(String[] wordsToSort, boolean build_bottom_up) {
             n = 0;
             max_size = wordsToSort.length;
