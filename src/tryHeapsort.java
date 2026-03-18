@@ -64,6 +64,17 @@ public class tryHeapsort {
         }
 
 
+        private void buildUp() {
+            //Construct a new heap all in one go
+            for (int i = 0; i < max_size; i++)
+                A[i] = unsortedWords[i];
+            n = max_size;
+
+            for (int i = (max_size / 2 - 1); i >= 0; i--)
+                heapifyDown(i);
+        }
+
+
         public Heapsort(String[] wordsToSort, boolean build_bottom_up) {
             n = 0;
             max_size = wordsToSort.length;
@@ -71,11 +82,12 @@ public class tryHeapsort {
             A = new String[max_size];
 
             if (build_bottom_up)
-            //Build the heap bottom up
-
+                //Build the heap bottom up
+                buildUp();
             else
-            //Build the heap top to bottom by inserting each word one by one
-            //for (String word : unsortedWords)
+                //Build the heap top to bottom by inserting each word one by one
+                for (String word : unsortedWords)
+                    insert(word);
 
 
         }
