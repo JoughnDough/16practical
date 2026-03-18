@@ -21,10 +21,6 @@ public class tryHeapsort {
             return 2 * parentIndex + 1;
         }
 
-        private int right(int parentIndex) {
-            return 2 * parentIndex + 2;
-        }
-
         private boolean A_greaterThan_B(String wordA, String wordB) {
             return wordA.compareTo(wordB) > 0;
         }
@@ -88,7 +84,7 @@ public class tryHeapsort {
 
             A[i] = word;
         }
-        
+
         public String[] sort(){
             for (int i = (n - 1); i >= 1; i--){
                 swap(i, 0);
@@ -98,5 +94,10 @@ public class tryHeapsort {
 
             return A;
         }
+    }
+
+    public static String[] sort(String[] words, boolean build_bottom_up){
+        Heapsort WordsHeap = new Heapsort(words, build_bottom_up);
+        return WordsHeap.sort();
     }
 }
