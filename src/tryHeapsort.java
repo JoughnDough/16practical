@@ -6,28 +6,46 @@ public class tryHeapsort {
         private String[] A;
         private String[] unsortedWords;
 
-        private void swap(int indexA, int indexB){
+        private void swap(int indexA, int indexB) {
             String tempB = A[indexB];
 
             A[indexB] = A[indexA];
             A[indexA] = tempB;
         }
 
-        private int parent(int childIndex){
-            return childIndex/2;
+        private int parent(int childIndex) {
+            return childIndex / 2;
         }
 
-        private int left(int parentIndex){
-            return 2*parentIndex + 1;
+        private int left(int parentIndex) {
+            return 2 * parentIndex + 1;
         }
 
-        private int right(int parentIndex){
-            return 2*parentIndex + 2;
+        private int right(int parentIndex) {
+            return 2 * parentIndex + 2;
         }
 
-        private  boolean A_greaterThan_B(String wordA, String wordB){
+        private boolean A_greaterThan_B(String wordA, String wordB) {
             return wordA.compareTo(wordB) > 0;
         }
+
+        private void insert(String word) {
+            int i = n++;
+
+            //Heapify upwards until an index, where word's placement in the heap does not violate its priority order, is found to insert word into the heap
+            while (i > 0) {
+                int parent_i = parent(i);
+
+                if (A_greaterThan_B(word, A[parent_i])) {
+                    swap(i, parent_i);
+                    i = parent_i;
+                } else
+                    break;
+            }
+
+            A[i] = word;
+        }
+
         
 
         public Heapsort(String[] wordsToSort, boolean build_bottom_up) {
